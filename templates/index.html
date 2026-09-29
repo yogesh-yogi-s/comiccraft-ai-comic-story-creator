@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comic Craft Giri | AI Comic Studio</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/comic.css">
+</head>
+<body>
+
+  <!-- Studio Header -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="wordmark" aria-label="Comic Craft Giri Studio">
+        <span class="wordmark-stamp" aria-hidden="true">CCG</span>
+        <span class="wordmark-name">COMIC CRAFT<br>GIRI</span>
+      </a>
+
+      <nav class="primary-nav">
+        <a href="#start">Start a Comic</a>
+        <a href="/docs" target="_blank">API Docs</a>
+        <a href="/health" target="_blank">System Health</a>
+        <button class="theme-toggle" type="button" aria-pressed="false">
+          <span class="theme-toggle-label">Night mode</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Studio Hero -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-rule"></span> Independent AI Comic Studio</p>
+        <h1>Big ideas.<br><span>Bold panels.</span></h1>
+        <p class="hero-summary">
+          We turn loose character thoughts, original scripts, and wild scenarios into complete 5-panel comic book stories with vivid illustrations and downloadable PDFs.
+        </p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a class="button button-primary" href="#start">Start a comic <span>↓</span></a>
+          <a class="button button-secondary" href="/docs" target="_blank">View API Docs <span>↗</span></a>
+        </div>
+      </div>
+
+      <figure class="hero-art-frame">
+        <img
+          src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=85"
+          alt="Artist brushes spreading vivid color across drawing paper"
+          loading="eager"
+        >
+      </figure>
+    </section>
+
+    <!-- Comic Creation Studio Form -->
+    <section class="studio-section" id="start">
+      <div class="form-card">
+        <p class="eyebrow"><span class="eyebrow-rule"></span> Create Your Comic</p>
+        <h2 style="font-size: 28px; font-weight: 900; margin-bottom: 8px;">
+          Every great comic starts with “what if?”
+        </h2>
+        <p style="color: var(--muted); margin-bottom: 28px; font-size: 15px;">
+          Enter any scenario or cross-universe encounter. Our AI story director generates 5 sequential acts with character dialogue, narration, and comic artwork.
+        </p>
+
+        <form id="comic-form" action="/generate" method="POST">
+          
+          <!-- Story Prompt Input -->
+          <div class="form-group">
+            <label class="form-label" for="story_prompt">
+              <span>Story Prompt &amp; Scenario</span>
+              <span class="form-hint">A character, a meeting, a battle, or a crazy idea</span>
+            </label>
+            <textarea
+              id="story_prompt"
+              name="story_prompt"
+              class="form-textarea"
+              placeholder="e.g. Naruto and Bumblebee meeting at the ramen shop to solve a mystery..."
+              required
+            >Naruto and Bumblebee meeting at the ramen shop</textarea>
+
+            <!-- Quick Scenario Inspiration Chips -->
+            <div class="chip-container">
+              <span style="font-size: 12px; color: var(--muted); align-self: center; font-weight: 700; margin-right: 4px;">Scenarios:</span>
+              <button
+                type="button"
+                class="prompt-chip"
+                data-prompt="Naruto and Bumblebee meeting at the ramen shop sharing noodles"
+                data-hero="Naruto"
+                data-setting="Hidden Leaf Village & Ichiraku Ramen Shop"
+                data-tone="Action Shonen"
+                data-style="Shonen Manga / Anime"
+              >
+                Naruto & Bumblebee (Ramen Shop)
+              </button>
+              <button
+                type="button"
+                class="prompt-chip"
+                data-prompt="A brave fox with a cape exploring an enchanted forest filled with glowing crystal ruins"
+                data-hero="Rusty"
+                data-setting="Enchanted Ancient Forest"
+                data-tone="Epic Adventure"
+                data-style="Classic DC/Marvel Comic Book"
+              >
+                Brave Fox (Enchanted Forest)
+              </button>
+              <button
+                type="button"
+                class="prompt-chip"
+                data-prompt="A rogue android discovering a forgotten greenhouse garden aboard a derelict starship"
+                data-hero="Echo-7"
+                data-setting="Deep Space Starship Cruiser"
+                data-tone="Poetic & Atmospheric"
+                data-style="Cyberpunk Neon"
+              >
+                Echo-7 Android (Deep Space)
+              </button>
+              <button
+                type="button"
+                class="prompt-chip"
+                data-prompt="A detective investigating mysterious glowing footprints across foggy city rooftops"
+                data-hero="Detective Vance"
+                data-setting="Gothic City Rooftops"
+                data-tone="Dark Mystery & Noir"
+                data-style="Dark Graphic Novel (Noir Ink)"
+              >
+                Detective Vance (Gothic Noir)
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid Options: Character, Setting, Tone, Style -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 16px;">
+            
+            <!-- Hero / Character -->
+            <div class="form-group">
+              <label class="form-label" for="character_name">
+                <span>Main Character Name</span>
+              </label>
+              <input
+                type="text"
+                id="character_name"
+                name="character_name"
+                class="form-input"
+                value="Naruto"
+                placeholder="e.g. Naruto, Bumblebee, Rusty, Spider-Hero"
+                required
+              >
+            </div>
+
+            <!-- Rich Settings Dropdown -->
+            <div class="form-group">
+              <label class="form-label" for="setting_select">
+                <span>Setting & Location</span>
+              </label>
+              <select id="setting_select" class="form-select">
+                <option value="Hidden Leaf Village & Ichiraku Ramen Shop" selected>Hidden Leaf Village & Ichiraku Ramen Shop (Anime / Ninja)</option>
+                <option value="Cyberpunk Metropolis & Neon Alleys">Cyberpunk Metropolis & Neon Alleys (Neo-Tokyo / Sci-Fi)</option>
+                <option value="Enchanted Ancient Forest">Enchanted Ancient Forest (High Fantasy)</option>
+                <option value="Deep Space Starship Cruiser">Deep Space Starship Cruiser (Galactic)</option>
+                <option value="Gothic City Rooftops">Gothic City Rooftops (Dark Noir / Detective)</option>
+                <option value="Haunted Victorian Academy">Haunted Victorian Academy (Supernatural)</option>
+                <option value="Steampunk Airship Citadel">Steampunk Airship Citadel (Adventure)</option>
+                <option value="Post-Apocalyptic Wasteland">Post-Apocalyptic Wasteland (Survival)</option>
+                <option value="Sunken Atlantis Ruins">Sunken Atlantis Ruins (Underwater Empire)</option>
+                <option value="Feudal Samurai Dojo">Feudal Samurai Dojo (Martial Arts)</option>
+                <option value="Ancient Dragon Peak">Ancient Dragon Peak (Mythic)</option>
+                <option value="CUSTOM">Custom Setting (Specify your own)</option>
+              </select>
+            </div>
+
+            <!-- Tone Selector -->
+            <div class="form-group">
+              <label class="form-label" for="story_tone">
+                <span>Story Tone</span>
+              </label>
+              <select id="story_tone" name="story_tone" class="form-select">
+                <option value="Action Shonen" selected>Action Shonen</option>
+                <option value="Epic Adventure">Epic Adventure</option>
+                <option value="Funny & Humorous">Funny & Humorous</option>
+                <option value="Dramatic">Dramatic</option>
+                <option value="Light-hearted & Whimsical">Light-hearted & Whimsical</option>
+                <option value="Dark Mystery & Noir">Dark Mystery & Noir</option>
+                <option value="Poetic & Atmospheric">Poetic & Atmospheric</option>
+              </select>
+            </div>
+
+            <!-- Art Style Selector -->
+            <div class="form-group">
+              <label class="form-label" for="art_style">
+                <span>Art Style</span>
+              </label>
+              <select id="art_style" name="art_style" class="form-select">
+                <option value="Shonen Manga / Anime" selected>Shonen Manga / Anime</option>
+                <option value="Classic DC/Marvel Comic Book">Classic DC/Marvel Comic Book</option>
+                <option value="Dark Graphic Novel (Noir Ink)">Dark Graphic Novel (Noir Ink)</option>
+                <option value="Cyberpunk Neon">Cyberpunk Neon</option>
+                <option value="Vintage 1980s Pulp Comic">Vintage 1980s Pulp Comic</option>
+                <option value="Watercolor Fantasy">Watercolor Fantasy</option>
+                <option value="Pixel Art Retro">Pixel Art Retro</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Custom Setting Input (Hidden unless Custom is picked) -->
+          <div class="form-group" id="custom_setting_container" style="display: none; margin-top: 8px;">
+            <label class="form-label" for="custom_setting_input">
+              <span>Enter Custom Setting</span>
+            </label>
+            <input
+              type="text"
+              id="custom_setting_input"
+              class="form-input"
+              placeholder="e.g. Floating Clockwork Island, Mars Terraforming Colony..."
+            >
+          </div>
+
+          <!-- Hidden Actual Setting Field submitted to backend -->
+          <input type="hidden" id="setting" name="setting" value="Hidden Leaf Village & Ichiraku Ramen Shop">
+
+          <!-- Submit Button -->
+          <div style="margin-top: 32px; display: flex; justify-content: flex-end;">
+            <button type="submit" class="button button-primary" style="font-size: 16px; padding: 16px 36px;">
+              Create Comic Strip <span>↗</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Generation Stepper Modal -->
+  <div id="progress-overlay" class="progress-overlay" aria-hidden="true">
+    <div class="progress-modal">
+      <div class="spinner-box"></div>
+      <h2 style="font-size: 22px; font-weight: 900; margin-bottom: 8px;">Creating Your Comic</h2>
+      <p style="font-size: 14px; color: var(--muted); margin-bottom: 24px;">
+        Executing full creative pipeline: Storyboard, Dialogue Script, AI Illustrations, and PDF binding.
+      </p>
+
+      <div class="stepper-list">
+        <div class="stepper-item active">
+          <div class="stepper-icon">1</div>
+          <span>Drafting 5-act comic outline...</span>
+        </div>
+        <div class="stepper-item">
+          <div class="stepper-icon">2</div>
+          <span>Writing speech dialogue, narration, and SFX...</span>
+        </div>
+        <div class="stepper-item">
+          <div class="stepper-icon">3</div>
+          <span>Generating comic panel illustrations...</span>
+        </div>
+        <div class="stepper-item">
+          <div class="stepper-icon">4</div>
+          <span>Binding panels into layout and compiling PDF...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Studio Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="wordmark-stamp" style="width: 28px; height: 28px; font-size: 10px;">CCG</span>
+        <span>Comic Craft Giri Studio // Powered by Generative AI</span>
+      </div>
+      <div>Make room for bigger stories.</div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

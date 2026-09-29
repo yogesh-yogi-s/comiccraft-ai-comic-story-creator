@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ character_name }} | Comic Craft Giri</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/comic.css">
+</head>
+<body>
+
+  <!-- Studio Header -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="wordmark" aria-label="Comic Craft Giri Studio">
+        <span class="wordmark-stamp" aria-hidden="true">CCG</span>
+        <span class="wordmark-name">COMIC CRAFT<br>GIRI</span>
+      </a>
+
+      <nav class="primary-nav">
+        <a href="/">Create New Comic</a>
+        <a href="{{ pdf_path }}" download class="button button-primary" style="padding: 8px 18px; font-size: 13px;">
+          Download PDF <span>↓</span>
+        </a>
+        <button class="theme-toggle" type="button" aria-pressed="false">
+          <span class="theme-toggle-label">Night mode</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Preview Container -->
+  <main class="preview-container">
+
+    <!-- Top Comic Meta Header Bar -->
+    <header class="comic-header-bar">
+      <div>
+        <p class="eyebrow" style="margin-bottom: 6px;"><span class="eyebrow-rule"></span> Finished Comic Chronicle</p>
+        <h1 style="font-size: 28px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.02em;">{{ story_title }}</h1>
+        <div class="comic-meta-tags">
+          <span class="meta-tag highlight">Character: {{ character_name }}</span>
+          <span class="meta-tag">Setting: {{ setting }}</span>
+          <span class="meta-tag">Tone: {{ story_tone }}</span>
+          <span class="meta-tag">Art Style: {{ art_style }}</span>
+          <span class="meta-tag">5 Sequential Acts</span>
+        </div>
+      </div>
+      <div>
+        <a href="/export-success?pdf_url={{ pdf_path }}&title={{ story_title | urlencode }}" class="button button-primary">
+          Download Your Comic as PDF <span>↓</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Sequential Comic Panel Cards -->
+    <section class="comic-strip-container" aria-label="Sequential Comic Panels">
+      {% for panel in layout %}
+      <article class="comic-panel-card">
+        
+        <!-- Left: Image Visual Column -->
+        <div class="panel-visual-col">
+          <div class="panel-act-badge">ACT {{ panel.panel }}</div>
+          <div class="panel-image-frame">
+            <img src="{{ panel.image_path }}" alt="Comic Illustration for Act {{ panel.panel }}: {{ panel.title }}" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Right: Narrative and Script Column -->
+        <div class="panel-narrative-col">
+          <div>
+            <h2 class="panel-header-title">Act {{ panel.panel }}: {{ panel.title }}</h2>
+            
+            {% if panel.description %}
+            <p class="panel-scene-desc">{{ panel.description }}</p>
+            {% endif %}
+
+            {% if panel.caption %}
+            <div class="ambient-sfx-tag">
+              <span>SFX:</span> {{ panel.caption }}
+            </div>
+            {% endif %}
+
+            {% if panel.narration %}
+            <div class="narration-box">
+              {{ panel.narration }}
+            </div>
+            {% endif %}
+
+            {% if panel.dialogue %}
+            <div class="speech-bubble">
+              <span class="speech-speaker">{{ character_name }} SPEAKS:</span>
+              {{ panel.dialogue }}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Technical Reference for Art Generation Prompt -->
+          {% if panel.prompt %}
+          <details class="prompt-details">
+            <summary>View Prompt Reference</summary>
+            <div class="prompt-snippet">{{ panel.prompt }}</div>
+          </details>
+          {% endif %}
+
+        </div>
+
+      </article>
+      {% endfor %}
+    </section>
+
+    <!-- Bottom Action Bar -->
+    <section class="bottom-action-bar">
+      <div>
+        <h3 style="font-size: 22px; font-weight: 900; margin-bottom: 6px;">Ready to keep or print your comic?</h3>
+        <p style="color: var(--muted); font-size: 15px;">
+          Compiled as a high-resolution, multi-page PDF comic book complete with cover artwork and dialogue script.
+        </p>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="/" class="button button-secondary">
+          Create Another Comic <span>↺</span>
+        </a>
+        <a href="/export-success?pdf_url={{ pdf_path }}&title={{ story_title | urlencode }}" class="button button-primary">
+          Download Your Comic as PDF <span>↓</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Studio Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="wordmark-stamp" style="width: 28px; height: 28px; font-size: 10px;">CCG</span>
+        <span>Comic Craft Giri Studio // AI Comic Story Creator</span>
+      </div>
+      <div><a href="/">Back to Studio</a></div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

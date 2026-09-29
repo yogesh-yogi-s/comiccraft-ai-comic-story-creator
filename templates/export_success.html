@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Export Complete | Comic Craft Giri</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/comic.css">
+</head>
+<body>
+
+  <!-- Studio Header -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="wordmark" aria-label="Comic Craft Giri Studio">
+        <span class="wordmark-stamp" aria-hidden="true">CCG</span>
+        <span class="wordmark-name">COMIC CRAFT<br>GIRI</span>
+      </a>
+
+      <nav class="primary-nav">
+        <a href="/">Create New Comic</a>
+        <button class="theme-toggle" type="button" aria-pressed="false">
+          <span class="theme-toggle-label">Night mode</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="preview-container">
+    <section class="form-card" style="max-width: 680px; margin: 48px auto; text-align: center;">
+      <div style="display: inline-block; background: var(--accent); color: #fff; font-weight: 900; font-size: 13px; padding: 6px 14px; border-radius: 4px; box-shadow: 2px 2px 0px var(--ink); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.1em;">
+        Export Successful
+      </div>
+
+      <h1 style="font-size: 32px; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.02em;">
+        Your Comic PDF Is Ready
+      </h1>
+      <p style="color: var(--muted); font-size: 16px; max-width: 520px; margin: 0 auto 28px;">
+        Your custom 5-act comic chronicle has been compiled into a high-resolution, multi-page PDF comic book complete with cover artwork and character dialogues.
+      </p>
+
+      <div style="background: var(--paper); border: 2px dashed var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 32px; font-family: monospace; font-size: 14px; color: var(--accent); word-break: break-all;">
+        <div>{{ filename }}</div>
+        <div style="font-size: 12px; color: var(--muted); margin-top: 6px;">
+          Generated and bound by Comic Craft Giri Studios
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="{{ pdf_url }}" download id="auto-download-btn" class="button button-primary">
+          Download PDF Again <span>↓</span>
+        </a>
+        <a href="/" class="button button-secondary">
+          Go Create Another Comic <span>↺</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Studio Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="wordmark-stamp" style="width: 28px; height: 28px; font-size: 10px;">CCG</span>
+        <span>Comic Craft Giri Studio // AI Comic Story Creator</span>
+      </div>
+      <div><a href="/">Back to Studio</a></div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+  <script>
+    // Automatically trigger download
+    window.addEventListener("DOMContentLoaded", () => {
+      const downloadBtn = document.getElementById("auto-download-btn");
+      if (downloadBtn && downloadBtn.getAttribute("href")) {
+        const link = document.createElement("a");
+        link.href = downloadBtn.getAttribute("href");
+        link.download = "";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    });
+  </script>
+</body>
+</html>
